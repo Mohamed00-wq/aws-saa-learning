@@ -90,8 +90,7 @@ aws elbv2 describe-target-health \
 - [ ] Design Secure Architectures (30%) — SSL termination, SG 
       rules on ELB
 
-## Lab notes
-(يتوضاف بعد ما تكمل الـ hands-on)
+
 
 ## Exam-style questions
 

@@ -1,3 +1,5 @@
+# (EBS) Elastic Block Store
+
 ## What it is
 Elastic Block Store (EBS) provides persistent block-level storage 
 volumes for use with EC2 instances. Unlike instance store, EBS 

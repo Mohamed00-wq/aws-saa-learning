@@ -1,4 +1,4 @@
-# EC2 (Elastic Compute Cloud)
+# (EC2) Elastic Compute Cloud
 
 ## What it is
 The core compute service in AWS — provides resizable virtual servers (instances) in the cloud. It solves the problem of needing on-demand, scalable computing power without buying or maintaining physical hardware. It sits at the center of most AWS architectures as the "server" building block that other services (load balancers, auto scaling, storage) attach to.

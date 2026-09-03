@@ -2,9 +2,9 @@
 
 ## What it is
 
-IAM is the backbone of every security decision in AWS. It is a **global** service (not region-scoped) that governs two fundamental questions: **who** is making a request (authentication) and **what** they are allowed to do (authorization). Every single AWS API call — whether from the console, CLI, SDK, or an internal service-to-service call — passes through IAM evaluation before anything happens.
+IAM is the backbone of every security decision in AWS. It is a **global** service (not region-scoped) that governs two fundamental questions: **who** is making a request (authentication) and **what** they are allowed to do (authorization). Every single AWS API call whether from the console, CLI, SDK, or an internal service-to-service call — passes through IAM evaluation before anything happens.
 
-IAM does not govern data-plane traffic directly (e.g. an EC2 instance reaching out to the internet); it governs control-plane and data-plane API permissions against AWS resources. Understanding IAM is not optional — it maps directly to the **Design Secure Architectures** domain, which carries the highest weight on the SAA-C03 exam.
+IAM does not govern data-plane traffic directly (e.g. an EC2 instance reaching out to the internet) it governs control-plane and data-plane API permissions against AWS resources. Understanding IAM is not optional it maps directly to the **Design Secure Architectures** domain which carries the highest weight on the SAA-C03 exam.
 
 ---
 
@@ -14,33 +14,37 @@ IAM does not govern data-plane traffic directly (e.g. an EC2 instance reaching o
 
 **Root user**
 - Created automatically when the AWS account is opened. It is the only identity that can never be deleted or restricted.
-- Has **unrestricted access** to every resource and API in the account — IAM cannot write a policy that denies the root user.
+- Has **unrestricted access** to every resource and API in the account IAM cannot write a policy that denies the root user.
 - Best practice: lock it away immediately. Use it only for tasks that specifically require root (e.g. closing the account, changing the account payment method, registering as an SSHCA certificate authority). Enable MFA on it the moment the account is created.
-- Root user credentials are the email + password used to create the account — not an access key.
+- Root user credentials are the email + password used to create the account not an access key.
 
 **IAM Users**
 - Long-lived identities with a permanent password (console) and/or up to two access key pairs (programmatic access).
-- Each user gets its own login profile, MFA device, and credential set.
-- Users are **not** a best practice for applications or services — use roles instead. Users exist for people or legacy systems that cannot assume roles.
+- Each user gets its own login profile MFA device, and credential set.
+- Users are **not** a best practice for applications or services use roles instead. 
+Users exist for people or legacy systems that cannot assume roles.
 - Access keys are not rotated automatically; you must manage rotation yourself.
 
 **IAM Groups**
 - A flat collection of users. Attaching a policy to a group grants those permissions to every member of the group.
-- Groups **cannot be nested** — you cannot put one group inside another. This is a common exam trap.
-- Groups exist only as a convenience for user management; they are not identities that can assume a role or appear in a policy's principal.
+- Groups **cannot be nested**  you cannot put one group inside another. 
+This is a common exam trap.
+- Groups exist only as a convenience for user management they are not identities that can assume a role or appear in a policy's principal.
 
 **IAM Roles**
 - The most important identity concept in AWS for the exam.
-- A role is a **temporary identity** — no long-term credentials exist. When assumed, the role produces temporary credentials (via AWS STS) that expire after a set period (default 1 hour, configurable up to 12 hours).
+- A role is a **temporary identity** no long-term credentials exist. 
+When assumed the role produces temporary credentials (via AWS STS) that expire after a set period (default 1 hour configurable up to 12 hours).
 - A role is defined by two policies:
-  1. **Trust policy** — defines WHO can assume this role (another AWS account, an EC2 instance, a federated user, a service like Lambda).
-  2. **Permission policy** — defines WHAT the assumed role can do once assumed.
-- Roles are the AWS-recommended way to grant an EC2 instance access to S3, DynamoDB, etc. — never hardcode access keys on an instance.
+  1. **Trust policy**  defines WHO can assume this role (another AWS account an EC2 instance, a federated user, a service like Lambda).
+  2. **Permission policy**  defines WHAT the assumed role can do once assumed.
+- Roles are the AWS-recommended way to grant an EC2 instance access to S3, DynamoDB, etc.  never hardcode access keys on an instance.
 - **Common role types:**
-  - **Service roles** — assumed by an AWS service (e.g. EC2 instance profile role, Lambda execution role).
-  - **Cross-account roles** — assumed by principals in a different AWS account, enabling federated multi-account access.
-  - **Federated roles** — assumed by users authenticated externally (Google, Active Directory, SAML 2.0) and mapped to IAM via identity federation.
-  - **Instance profiles** — a container that wraps a role so it can be attached to an EC2 instance. The instance fetches temporary credentials from the instance metadata service (IMDSv1 or IMDSv2) automatically.
+  - **Service roles**  assumed by an AWS service (e.g. EC2 instance profile role, Lambda execution role).
+  - **Cross-account roles** assumed by principals in a different AWS account, enabling federated multi-account access.
+  - **Federated roles** assumed by users authenticated externally (Google, Active Directory, SAML 2.0) and mapped to IAM via identity federation.
+  - **Instance profiles**  a container that wraps a role so it can be attached to an EC2 instance. 
+The instance fetches temporary credentials from the instance metadata service (IMDSv1 or IMDSv2) automatically.
 
 ### Policies (the rules)
 
@@ -53,29 +57,30 @@ Policies are JSON documents. Every policy has:
   - **Condition** *(optional)* — extra constraints such as requiring MFA, restricting by source IP, enforcing TLS, limiting by tag, or restricting time of day.
 
 **Policy types:**
-- **Identity-based policies** — attached to a user, group, or role. Defines what that identity can do.
-- **Resource-based policies** — attached directly to a resource (S3 bucket policy, SQS queue policy, KMS key policy). Defines who can access that resource. Resource-based policies are unique because they can grant access to principals in **other AWS accounts** directly.
-- **Permission boundaries** — a maximum permission ceiling set on a user or role. The effective permission is the **intersection** of the identity policy and the permission boundary. If the boundary says `"Allow s3:*"` but the identity policy says `"Allow ec2:*"`, neither is allowed — the intersection is empty.
-- **Session policies** — a policy passed when a role is assumed (via `AssumeRole`), further restricting the session. The effective permission is the intersection of the role's identity policy and the session policy.
-- **AWS Organizations SCPs (Service Control Policies)** — organization-wide permission boundaries applied at the OU or account level. An SCP does not grant permissions — it sets the maximum ceiling for what any identity in that account/OU can do. If an SCP denies `"s3:*"`, no one in that account (including root) can use S3, regardless of what their local policies say.
-- **ACLs (Access Control Lists)** — an older, less common mechanism. Used by S3 (bucket ACL, object ACL) and VPC (network ACLs). Most workloads should use policies instead.
+- **Identity-based policies**  attached to a user, group, or role. Defines what that identity can do.
+- **Resource-based policies**  attached directly to a resource (S3 bucket policy, SQS queue policy, KMS key policy). Defines who can access that resource. Resource-based policies are unique because they can grant access to principals in **other AWS accounts** directly.
+- **Permission boundaries**  a maximum permission ceiling set on a user or role. The effective permission is the **intersection** of the identity policy and the permission boundary. If the boundary says `"Allow s3:*"` but the identity policy says `"Allow ec2:*"`, neither is allowed  the intersection is empty.
+- **Session policies**  a policy passed when a role is assumed (via `AssumeRole`), further restricting the session. The effective permission is the intersection of the role's identity policy and the session policy.
+- **AWS Organizations SCPs (Service Control Policies)**  organization-wide permission boundaries applied at the OU or account level. An SCP does not grant permissions  it sets the maximum ceiling for what any identity in that account/OU can do. If an SCP denies `"s3:*"`, no one in that account (including root) can use S3, regardless of what their local policies say.
+- **ACLs (Access Control Lists)**  an older, less common mechanism. Used by S3 (bucket ACL, object ACL) and VPC (network ACLs). Most workloads should use policies instead.
 
 **Managed vs Inline:**
-- **AWS-managed policies** — pre-built by AWS for common use cases (e.g. `AmazonS3ReadOnlyAccess`). They are versioned and updated by AWS; you cannot modify them.
+- **AWS-managed policies**  pre-built by AWS for common use cases (e.g. `AmazonS3ReadOnlyAccess`). They are versioned and updated by AWS; you cannot modify them.
 - **Customer-managed policies** — policies you create, version, and control. Recommended for production use because you can review and audit them.
-- **Inline policies** — embedded directly into a single user, group, or role. They exist in a 1-to-1 relationship and are not reusable. AWS discourages their use except for specific scenarios (e.g. a user that needs permissions unique to that user alone and nowhere else).
+- **Inline policies**  embedded directly into a single user, group, or role. They exist in a 1-to-1 relationship and are not reusable. AWS discourages their use except for specific scenarios (e.g. a user that needs permissions unique to that user alone and nowhere else).
 
 ### Policy evaluation logic
 
 This is one of the most important things to understand for the exam:
 
-1. **Default deny** — by default, all requests are denied. Nothing is allowed unless an explicit Allow exists.
-2. **Explicit Deny always wins** — if ANY applicable policy contains an explicit Deny for the request, the request is denied, period. It does not matter how many Allows exist elsewhere.
-3. **Explicit Allow is needed** — after checking for Denys, there must be at least one explicit Allow for the request to be permitted.
-4. **SCP boundary** — before evaluating identity or resource policies, the request is first checked against the account/OU SCPs. If the SCP does not include the action in its implicit deny (and does not explicitly deny it), evaluation continues.
-5. **Permission boundary** — if a permission boundary is attached to the identity, the final permission is the intersection of the identity policy and the boundary.
-6. **Resource-based policy** — evaluated alongside identity policies. If either grants an Allow (and neither has a Deny), the action is permitted.
-7. **Session policy** — when assuming a role with a session policy, the result is the intersection of the role's policies and the session policy.
+1. **Default deny**  by default, all requests are denied. Nothing is allowed unless an explicit Allow exists.
+2. **Explicit Deny always wins**  if ANY applicable policy contains an explicit Deny for the request, the request is denied, period. It does not matter how many Allows exist elsewhere.
+3. **Explicit Allow is needed**  after checking for Denys, there must be at least one explicit Allow for the request to be permitted.
+4. **SCP boundary**  before evaluating identity or resource policies, the request is first checked against the account/OU SCPs. If the SCP does not include the action in its implicit deny (and does not explicitly deny it) evaluation continues.
+5. **Permission boundary**  if a permission boundary is attached to the identity the final permission is the intersection of the identity policy and the boundary.
+6. **Resource-based policy**  evaluated alongside identity policies. 
+If either grants an Allow (and neither has a Deny) the action is permitted.
+7. **Session policy**  when assuming a role with a session policy the result is the intersection of the role's policies and the session policy.
 
 **The shorthand for exams:** Deny always wins → Default is deny → Allow must be explicit → SCPs set the outer ceiling → Permission boundaries and session policies restrict further.
 

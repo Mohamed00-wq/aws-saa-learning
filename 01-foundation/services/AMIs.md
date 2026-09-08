@@ -1,6 +1,6 @@
-# AMI — Amazon Machine Image
+ # ![AMI](/images/icons/arch/Arch_Amazon-EC2-Image-Builder_64.svg) AMI — Amazon Machine Image 
 
-![AMI](/images/icons/arch/Arch_Amazon-EC2-Image-Builder_64.svg)
+ 
 
 
 ## What it is

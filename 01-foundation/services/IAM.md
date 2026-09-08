@@ -1,6 +1,6 @@
-# IAM — Identity and Access Management
-
 ![IAM](/images/icons/arch/Arch_AWS-Identity-and-Access-Management_64.svg)
+
+# IAM — Identity and Access Management
 
 ## What it is
 

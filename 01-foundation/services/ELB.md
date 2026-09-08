@@ -1,6 +1,6 @@
-# ELB — Elastic Load Balancing
-
 ![ELB](/images/icons/arch/Arch_Elastic-Load-Balancing_64.svg)
+
+# ELB — Elastic Load Balancing
 
 ## What it is
 

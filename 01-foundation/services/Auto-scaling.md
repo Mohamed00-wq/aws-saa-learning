@@ -1,6 +1,6 @@
-# ASG — Auto Scaling Groups
-
 ![ASG](/images/icons/arch/Arch_Amazon-EC2-Auto-Scaling_64.svg)
+
+# ASG — Auto Scaling Groups
 
 ## What it is
 

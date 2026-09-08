@@ -1,8 +1,8 @@
- # ![AMI](/images/icons/arch/Arch_Amazon-EC2-Image-Builder_64.svg) AMI — Amazon Machine Image 
+![AMI](/images/icons/arch/Arch_Amazon-EC2-Image-Builder_64.svg)
+
+# AMI — Amazon Machine Image 
 
  
-
-
 ## What it is
 
 An AMI is the immutable blueprint from which every EC2 instance is launched. It packages everything needed to boot a fully functional server: the operating system, pre-installed software, configuration files, and a block device mapping that defines which EBS volumes (and how big) are attached at launch.

@@ -1,6 +1,6 @@
-# EC2 — Elastic Compute Cloud 
-
 ![EC2](/images/icons/arch/Arch_Amazon-EC2_64.svg)
+
+# EC2 — Elastic Compute Cloud 
 
 ## What it is
 

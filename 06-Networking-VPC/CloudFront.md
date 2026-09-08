@@ -1,6 +1,6 @@
-# CloudFront — Content Delivery Network (CDN)
-
 ![CloudFront](/images/icons/arch/Arch_Amazon-CloudFront_64.svg)
+
+# CloudFront — Content Delivery Network (CDN)
 
 ## What it is
 

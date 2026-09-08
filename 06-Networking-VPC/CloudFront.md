@@ -1,5 +1,7 @@
 # CloudFront — Content Delivery Network (CDN)
 
+![CloudFront](/images/icons/arch/Arch_Amazon-CloudFront_64.svg)
+
 ## What it is
 
 CloudFront is AWS's global **Content Delivery Network (CDN)**. It caches content at **edge locations** around the world, so users get content from the location nearest to them instead of from the origin server directly. This reduces latency, offloads traffic from the origin, and adds a layer of security (HTTPS, DDoS protection) in front of your application.

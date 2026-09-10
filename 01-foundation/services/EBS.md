@@ -1,5 +1,3 @@
-![EBS](/images/icons/arch/Arch_Amazon-Elastic-Block-Store_64.svg)
-
 # EBS — Elastic Block Store
 
 ## What it is

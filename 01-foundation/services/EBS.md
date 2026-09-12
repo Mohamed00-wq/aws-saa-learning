@@ -65,7 +65,7 @@ Uses **KMS**. Encrypts at rest + in transit + snapshots. **Cannot retroactively 
 
 ## Related services
 
-- [[EC2]] — EBS attaches as block devices
-- [[AMI]] — EBS-backed AMIs from snapshots
-- [[KMS]] — EBS encryption
-- [[Auto-scaling]] — launch templates define EBS volumes
+- **EC2** — EBS attaches as block devices
+- **AMI** — EBS-backed AMIs from snapshots
+- **KMS** — EBS encryption
+- **Auto-scaling** — launch templates define EBS volumes

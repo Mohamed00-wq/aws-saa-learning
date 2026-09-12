@@ -77,9 +77,9 @@ Single sign-on across accounts + apps + SAML. Integrates with Organizations; ass
 
 ## Related services
 
-- [[EC2]] — roles via instance profiles for secure service access
-- [[S3]] — resource-based bucket policies; cross-account via roles
-- [[STS]] — issues temp creds for role assumption
-- [[Organizations]] — SCPs across accounts
-- [[KMS]] — key policies are resource-based
-- [[Cognito]] — identity pools issue temp IAM creds
+- **EC2** — roles via instance profiles for secure service access
+- **S3** — resource-based bucket policies; cross-account via roles
+- **STS** — issues temp creds for role assumption
+- **Organizations** — SCPs across accounts
+- **KMS** — key policies are resource-based
+- **Cognito** — identity pools issue temp IAM creds

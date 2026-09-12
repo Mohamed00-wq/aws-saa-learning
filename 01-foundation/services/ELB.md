@@ -87,10 +87,10 @@ Stop new connections to a deregistered/unhealthy target but let existing finish 
 
 ## Related services
 
-- [[EC2]] — primary LB targets
-- [[Auto-scaling]] — manages target pool, auto-registers/deregisters
-- [[VPC]] — LBs deployed in VPC subnets (ALB/NLB need ≥2 AZs)
-- [[ACM]] — TLS certificates for HTTPS listeners
-- [[WAF]] — integrates with ALB
-- [[Route53]] — DNS to load balancer
-- [[CloudWatch]] — LB metrics for monitoring/scaling
+- **EC2** — primary LB targets
+- **ASG** — manages target pool, auto-registers/deregisters
+- **VPC** — LBs deployed in VPC subnets (ALB/NLB need ≥2 AZs)
+- **ACM** — TLS certificates for HTTPS listeners
+- **WAF** — integrates with ALB
+- **Route53** — DNS to load balancer
+- **CloudWatch** — LB metrics for monitoring/scaling

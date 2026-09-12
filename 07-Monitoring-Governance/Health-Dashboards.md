@@ -71,7 +71,7 @@ AWS Health Dashboard is **free** — no charge for events, notifications, or API
 
 ## Related services
 
-- [[CloudWatch]] — operational metrics; Health explains when AWS infrastructure is the cause
-- [[EventBridge]] — route Health events to automation workflows
-- [[SNS]] — email/SMS notifications for Health events
-- [[Auto-scaling]] — Health events can trigger scaling via EventBridge
+- **CloudWatch** — operational metrics; Health explains when AWS infrastructure is the cause
+- **EventBridge** — route Health events to automation workflows
+- **SNS — email/SMS** notifications for Health events
+- **ASG** — Health events can trigger scaling via EventBridge

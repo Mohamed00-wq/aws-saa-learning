@@ -82,7 +82,7 @@ AWS Artifact is **free** — no charge for downloading reports or signing agreem
 
 ## Related services
 
-- [[AWS-Config]] — tracks resource compliance against rules; Artifact provides AWS-side compliance evidence
-- [[AWS-Security-Hub]] — aggregates security findings; Artifact shows AWS compliance certifications
-- [[IAM]] — controls who can access Artifact in your account
-- [[KMS]] — Artifact reports are not KMS-encrypted (stored in AWS-managed S3)
+- **AWS-Config** — tracks resource compliance against rules; Artifact provides AWS-side compliance evidence
+- **AWS-Security-Hub** — aggregates security findings; Artifact shows AWS compliance certifications
+- **IAM** — controls who can access Artifact in your account
+- **KMS** — Artifact reports are not KMS-encrypted (stored in AWS-managed S3)

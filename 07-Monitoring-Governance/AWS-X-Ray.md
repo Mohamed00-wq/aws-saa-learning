@@ -85,6 +85,6 @@ First 100,000 traces recorded free. Above: $5.00/100k. Scanned: $0.50/1M traces.
 
 ## Related services
 
-- [[CloudWatch]] — metrics/logs; X-Ray provides the tracing layer
-- [[CloudTrail]] — audit log; X-Ray traces execution paths
-- [[Lambda]] — primary service instrumented with X-Ray
+- **CloudWatch** — metrics/logs; X-Ray provides the tracing layer
+- **CloudTrail** — audit log; X-Ray traces execution paths
+- **Lambda** — primary service instrumented with X-Ray

@@ -64,8 +64,8 @@ Managed service for automated AMI creation: recipe (base + components + tests) �
 
 ## Related services
 
-- [[EC2]] — launches instances from AMIs
-- [[EBS]] — AMI snapshots create new EBS volumes at launch
-- [[Auto-scaling]] — ASGs use Launch Template referencing an AMI
-- [[EC2 Image Builder]] — automated AMI build/test/distribute
-- [[KMS]] — AMI encryption; cross-account copy may need key sharing
+- **EC2** — launches instances from AMIs
+- **EBS** — AMI snapshots create new EBS volumes at launch
+- **Auto-scaling** — ASGs use Launch Template referencing an AMI
+- **EC2 Image Builder** — automated AMI build/test/distribute
+- **KMS** — AMI encryption; cross-account copy may need key sharing

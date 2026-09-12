@@ -54,7 +54,7 @@ Auto Scaling Groups maintain the right number of EC2 instances to match demand. 
 
 ## Related services
 
-- [[EC2]] — compute the ASG manages
-- [[ELB]] — traffic distribution; health check signals
-- [[CloudWatch]] — metrics driving scaling policies
-- [[SNS]] — lifecycle hook notifications
+- **EC2** — compute the ASG manages
+- **ELB** — traffic distribution; health check signals
+- **CloudWatch** — metrics driving scaling policies
+- **SNS** — lifecycle hook notifications

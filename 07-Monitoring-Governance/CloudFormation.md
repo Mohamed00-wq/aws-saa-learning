@@ -87,4 +87,4 @@ CloudFormation itself is **free** — you pay only for the underlying AWS resour
 
 ## Related services
 
-- [[CDK]] — synthesizes to CloudFormation templates
+- **CDK** — synthesizes to CloudFormation templates

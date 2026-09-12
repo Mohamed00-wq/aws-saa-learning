@@ -91,9 +91,9 @@ Data descends layers, each adding a header (L7→L6→L5→TCP→IP→Ethernet�
 
 ## Related services
 
-- [[ALB]] — L7 HTTP routing
-- [[NLB]] — L4 TCP/UDP
-- [[GWLB]] — L3 virtual appliance integration
-- [[VPC]] — implements L1-3
-- [[Security-Groups]] — L4 firewall
-- [[ACM]] — L6 cert management
+- **ALB** — L7 HTTP routing
+- **NLB** — L4 TCP/UDP
+- **GWLB** — L3 virtual appliance integration
+- **VPC** — implements L1-3
+- **Security-Groups** — L4 firewall
+- **ACM** — L6 cert management

@@ -85,6 +85,6 @@ CDK itself is **free** — you pay only for the AWS resources it creates.
 
 ## Related services
 
-- [[CloudFormation]] — CDK's underlying engine; synthesizes to CF templates
-- [[SSM]] — parameter store for context lookups
-- [[S3]] — asset staging bucket created by bootstrap
+- **CloudFormation** — CDK's underlying engine; synthesizes to CF templates
+- **SSM** — parameter store for context lookups
+- **S3** — asset staging bucket created by bootstrap

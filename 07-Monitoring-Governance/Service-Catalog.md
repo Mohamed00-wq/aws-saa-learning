@@ -74,7 +74,7 @@ AWS Service Catalog is **free** — pay only for underlying resources provisione
 
 ## Related services
 
-- [[CloudFormation]] — products are backed by CF templates
-- [[IAM]] — launch constraints, portfolio sharing permissions
-- [[AWS-Config]] — enforce ongoing tag compliance post-launch
-- [[AWS-Organizations]] — share portfolios across all accounts
+- **CloudFormation** — products are backed by CF templates
+- **IAM** — launch constraints, portfolio sharing permissions
+- **AWS-Config** — enforce ongoing tag compliance post-launch
+- **AWS-Organizations** — share portfolios across all accounts

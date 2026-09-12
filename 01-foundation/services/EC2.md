@@ -75,9 +75,9 @@ pending → running → stopping → stopped → pending → running
 
 ## Related services
 
-- [[AMI]] — template instances are launched from
-- [[EBS]] — persistent block storage
-- [[Auto-scaling]] — launch/terminate on demand
-- [[ELB]] — distributes traffic across instances
-- [[VPC]] — subnets, routing context
-- [[IAM]] — roles via instance profiles
+- **AMI** — template instances are launched from
+- **EBS** — persistent block storage
+- **ASG** — launch/terminate on demand
+- **ELB** — distributes traffic across instances
+- **VPC** — subnets, routing context
+- **IAM** — roles via instance profiles

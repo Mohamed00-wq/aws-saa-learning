@@ -87,4 +87,4 @@ CloudTrail records **every API call** in your account — console, CLI, SDK, Clo
 
 ## Related services
 
-- [[CloudWatch]] — metric filters, alarms, real-time alerting
+- **CloudWatch** — metric filters, alarms, real-time alerting

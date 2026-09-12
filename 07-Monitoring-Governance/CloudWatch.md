@@ -85,6 +85,6 @@ CloudWatch is AWS's native monitoring and observability service. It collects met
 
 ## Related services
 
-- [[CloudTrail]] — audit log of API calls vs operational metrics
-- [[EventBridge]] — event-driven rules triggered by CloudWatch alarms
-- [[X-Ray]] — distributed tracing for request paths
+- **CloudTrail** — audit log of API calls vs operational metrics
+- **EventBridge** — event-driven rules triggered by CloudWatch alarms
+- **X-Ray** — distributed tracing for request paths

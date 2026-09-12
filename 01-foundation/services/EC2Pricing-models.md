@@ -91,8 +91,8 @@ Commit to a fixed **$/hour** for 1/3 years.
 
 ## Related services
 
-- [[EC2]] — compute these models apply to
-- [[Auto-scaling]] — combine models (Reserved baseline + Spot burst)
-- [[AMI]] — template regardless of pricing model
-- [[Savings Plans]] — console for managing SPs
-- [[AWS-Compute-Optimizer]] — right-sizing + model recommendations
+- **EC2** — compute these models apply to
+- **ASG** — combine models (Reserved baseline + Spot burst)
+- **AMI**— template regardless of pricing model
+- **Savings Plans** — console for managing SPs
+- **AWS-Compute-Optimizer** — right-sizing + model recommendations

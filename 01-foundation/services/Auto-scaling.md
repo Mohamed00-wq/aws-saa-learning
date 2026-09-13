@@ -10,6 +10,22 @@ Auto Scaling Groups maintain the right number of EC2 instances to match demand. 
 
 **ASG settings**: min (never below), max (never above), desired (target). Multi-AZ for HA. Auto-registers instances with a **target group**.
 
+## Horizontal vs Vertical scaling
+
+| | **Horizontal (scale out/in)** | **Vertical (scale up/down)** |
+|---|---|---|
+| What | Add/remove **instances** | Resize the **same instance** (bigger type) |
+| Mechanism | ASG adjust count | Change instance type (requires stop/start) |
+| Limits | Effectively unlimited | Capped by largest instance type/region quotas |
+| Resilience | High — no single point of failure | Low — a bigger single instance is still one point of failure |
+| Downtime | **Zero** — new instances added live | **Downtime** — must stop instance to resize |
+| Cost | Pay-per-instance, scales granularly | Step cost jumps; over-provision to handle peaks |
+| Typical use | Stateless web/app tiers, demand bursts | Stateful workloads, small infra, quick boost |
+
+- **Vertical** is *not* an ASG activity — resize via instance type change (usually a manual step, possibly automated).
+- **Horizontal** is what ASGs do: change `desired/min/max` count. Most exam scenarios choose horizontal for elasticity + availability.
+- Spot/Ondemand mix and warm pools are horizontal-scaling levers; bigger instance type is a vertical-scaling lever.
+
 ## Scaling policies
 
 | Policy | How it works |
@@ -51,6 +67,9 @@ Auto Scaling Groups maintain the right number of EC2 instances to match demand. 
 5. **Warm pool instances count toward max size**
 6. Predictive scaling needs ~**14 days** history
 7. **Health check grace period** (300s) prevents marking new instances unhealthy before init
+8. **Horizontal scaling = more instances (zero downtime)**; **vertical = bigger instance (downtime)**
+9. Vertical scaling is **capped** by max instance sizes; horizontal scales far beyond any single limit
+10. Prefer **horizontal** for stateless tiers and HA; vertical for quick fixes on stateful instances
 
 ## Related services
 

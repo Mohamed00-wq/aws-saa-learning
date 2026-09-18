@@ -1,83 +1,78 @@
 # EC2 — Elastic Compute Cloud 
 
-## What it is
+## Purpose
 
-EC2 is the foundational compute building block in AWS — resizable virtual servers (instances) in the cloud. It provides full control over OS, networking, and software stack. Nearly every architecture on the exam involves EC2 directly or as the target behind an ELB.
+ * In AWS **ec2*(Elastic Compute Cloud)** is used to create and run virtual servers in cloud.
 
-## Instances & types
+ * Think of EC2 as renting a computer from AWS instead of buying and maintaining a phisycal server.
 
-- Launched **from an AMI**; immutable **instance ID** (`i-0abc...`). Independent of AMI after launch.
 
-| Family | Use | Examples |
-|---|---|---|
-| **General (t, m)** | Balanced | t3.micro, m5.large |
-| **Compute (c)** | CPU-heavy | c5.large |
-| **Memory (r, x, z)** | In-memory DBs | r5.large |
-| **Storage (i, d, h)** | High local I/O | i3.large |
-| **Accelerated (p, g, trn, inf)** | GPU/ML | p4d.24xlarge |
+## How it work
 
-- **t-series**: CPU **credit** model — burst above baseline, throttled when exhausted; unlimited mode for extra cost.
+ * EC2 allows you to create and run virtual servers called **instances** in the AWS cloud. 
+ 
+ * when you launchning an instance you chose an AMI that provides the OS 
 
-## Networking
+ * an instance type that determines  the CPU and RAM  
 
-- Primary **private IP** + primary **ENI**. **Public IP** auto-assigned, changes on restart.
-- **Elastic IP (EIP)**: static public IP, persists across stop/start. **Charged when idle**.
+ * configure networking  
+ 
+ * configure SGs to controll network traffic 
 
-## Security Groups vs NACLs
 
-| | Security Group | NACL |
-|---|---|---|
-| Level | Instance (ENI) | Subnet |
-| State | **Stateful** | **Stateless** |
-| Rules | Allow only, no Deny | Numbered, first match, explicit **Deny** |
+Suppose you developed a Java web application on your laptop
 
-## ENIs, Placement groups, Hibernation
+Users → Internet → EC2 instance → Your Java application → Database
 
-- **ENI**: AZ-scoped virtual network card. Primary deleted on termination; secondary detachable.
-- **Cluster**: same rack, lowest latency (HPC). **Spread**: distinct racks, max 7/AZ. **Partition**: logical partitions (HDFS, Kafka).
-- **Hibernation**: saves RAM to **encrypted root EBS** — resume with processes intact.
+You can create an EC2 instance choose Ubuntu Linux install Java upload your application and start it Your EC2 instance can then serve the application over the internet.
 
-## User Data & Lifecycle
 
-- Script runs once at first boot. Max **16 KB**. Stored unencrypted.
+## When to use EC2 
 
-```
-pending → running → stopping → stopped → pending → running
-                       ↓
-                  terminating → terminated
-```
+we use EC2 whene we need  control over a virtual server and its environment
 
-- **stopped**: no compute charge, EBS still billed. **terminated**: root volume deleted, non-root preserved.
+     * we need  to run a custom application on a linux or Windows server
 
-## IMDS (169.254.169.254)
+     * we need a specific CPU RAM storage or networking 
 
-**IMDSv2** requires a `PUT` token — prevents **SSRF** credential theft. Enable when SSRF is mentioned.
 
-## Exam domains
+## When to not use 
 
-- [x] **Secure (30%)** — SGs, NACLs, IMDSv2, instance profile roles
-- [x] **Resilient (26%)** — spread groups, lifecycle, hibernation
-- [x] **High-Performing (24%)** — instance type selection, cluster groups for HPC
-- [x] **Cost-Optimized (20%)** — pricing models, idle EIP charges, t-series credits
+Don't choose EC2  when AWS  a managed service  that already solves the problem and we don't need server level control
 
-## Key gotchas
 
-1. SGs **stateful**, NACLs **stateless** — NACL must allow response explicitly
-2. SGs no Deny rules; NACLs do
-3. Deleting AMI **doesn't delete snapshots**
-4. **Idle EIPs** incur charges
-5. **Root volume** deleted on termination, non-root preserved
-6. **Instance store** data lost on stop/terminate
-7. t-series unlimited mode can exceed fixed-size instance cost
-8. **Hibernation requires encrypted root volume**
-9. SGs can reference other SGs ("allow 3306 from sg-app")
-10. Enable **IMDSv2** to stop SSRF credential theft
+## Important features 
 
-## Related services
+     * Instance Types chose CPU RAM network and other resources our workload needs 
+     * AMI (amazon machine image) a template containing the OS and software config 
+     * EBS (elastic block store) presistent block storage attached to EC2 instances 
+     * instance store Temporary local storage physicaly attached to the host data is lost whene the instace stopped terminated
+     * Security Groups virtual firawalls that control inbound and outbound  traffic for EC2
+     * Elastic IP  a statuc public ipv4 address that can be associated with  an EC2 
+     * Key pairs used  to securely connect to instances ssh for linux
+     * auto scalling automatically adds or removes ec2 instances according to demand
+     * Elasitc load balanciing distributes traffic across multiple ec2 instances 
+     * Placement Groups control how ec2 instances are physically places to optimize for performance low latency or fault tolerance 
+     * purchasing options on demand, reserved instances/ savings plans, spot instances and dedicated hosts/instances 
+     * instance lifecycle ec2 instances can be pending → running → stopping/stopped → terminated
+     * IAM Roles  give an ec2 instance  permession to access  aws services  without  storing aws access keys on the server 
 
-- **AMI** — template instances are launched from
-- **EBS** — persistent block storage
-- **ASG** — launch/terminate on demand
-- **ELB** — distributes traffic across instances
-- **VPC** — subnets, routing context
-- **IAM** — roles via instance profiles
+
+## limitations 
+
+EC2 is powerful but also has some important limitations 
+     **you manage the server**
+     **scaling is not automatic by default**
+     **higher operational overhead** compare with another services ec2 need more addministration 
+     **instance failure is possible**
+     **instance limits**  number vCPU elastic ips, etc  
+     **instance store is temporary**
+     **costs continue while running**
+     **some workloads require specific instance type**
+     **some workloads require specific instance type**
+     **regional/AZ dependency** an ec2 instance exits in a specific aws region / availability zone 
+
+
+## trade-off
+
+     trade-off means choosing between two or more technical solutions where each option has advantages and disadvantages you can't maximize everything at once so you optimize for what matters most in a given scenario.

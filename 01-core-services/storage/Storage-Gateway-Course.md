@@ -4,6 +4,12 @@
 
 AWS Storage Gateway is a **hybrid cloud storage service** that bridges on-premises applications to AWS storage. A software appliance (VM) runs in your data center (or on EC2) and presents **standard protocols** your apps already use — NFS/SMB, iSCSI, or a virtual tape library — while seamlessly storing data in AWS (S3, EBS snapshots, Glacier). It gives **local low-latency access + cloud durability/cost** without rewriting applications for the cloud.
 
+Internet Gateway
+→ VPC ↔ Internet
+
+Storage Gateway
+→ On-Premises ↔ AWS Storage
+
 ## 2. How it works
 
 - Deploy the gateway as a **VM appliance** (VMware/Hyper-V/KVM) on-prem, or a **hardware appliance**, or **on EC2**

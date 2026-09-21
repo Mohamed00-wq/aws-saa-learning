@@ -2,7 +2,11 @@
 
 ## 1. Purpose
 
-EFS is AWS's **managed, serverless shared file system** using **NFS**. It grows and shrinks automatically to **petabyte scale** with zero capacity provisioning, and lets **many Linux instances across many AZs mount the same files simultaneously**. It's the shared-POSIX-storage answer when EBS's single-instance block model doesn't fit. PowerShell/SMB/Windows needs go to FSx, not EFS.
+EFS is AWS's **managed, serverless shared file system** using **NFS** (Network File System). It grows and shrinks automatically to **petabyte scale** with zero capacity provisioning, and lets **many Linux instances across many AZs mount the same files simultaneously**. It's the shared-POSIX-storage answer when EBS's single-instance block model doesn't fit. PowerShell/SMB/Windows needs go to FSx, not EFS.
+
+EBS → Block Storage → EC2 Disk
+EFS → File Storage → Shared Files → NFS → Multiple EC2
+S3 → Object Storage → Objects/Buckets
 
 ## 2. How it works
 

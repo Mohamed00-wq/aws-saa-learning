@@ -40,7 +40,7 @@ Retention: volume continues to bill even when instance is stopped (not terminate
 ## 5. Important features
 
 - **Volume types** (the exam's table):
-  | Type | Max IOPS | Max throughput | Best for |
+  | Type | Max IOPS (Input/Output Operations Per Second) | Max throughput | Best for |
   |---|---|---|---|
   | **gp3** (default) | 16,000 | 1,000 MB/s | Boot, most apps, dev/test — IOPS decoupled from size (baseline 3,000 IOPS + 125 MB/s, scale independently) |
   | **gp2** (legacy) | 16,000 | 250 MB/s | Legacy — IOPS tied to GB (3 IOPS/GB) |

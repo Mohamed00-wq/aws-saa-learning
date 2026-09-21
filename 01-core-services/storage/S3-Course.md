@@ -51,6 +51,9 @@ Users/EC2/Lambda/App → HTTP(S) → S3 bucket (region X, globally-unique name)
   | **Glacier Instant Retrieval** | Archived, rarely accessed, ms retrieval | ms |
   | **Glacier Flexible Retrieval** | Archive, backup | minutes–hours |
   | **Glacier Deep Archive** | Long-term (compliant) archive, lowest cost | 12–48 h |
+
+**IA = Infrequent Access**
+
   - All Standard/IA/Glacier give 11 nines durability (**except One Zone-IA**)
 - **Lifecycle rules** — transition (Standard→IA→Glacier→Deep Archive) and expiration (delete old versions). Min-dwell: 30 days before IA, 90 days before Glacier/Deep Archive
 - **Versioning** — keeps history; delete creates a **delete marker** (data retained); can suspend (never fully off); **MFA Delete** for permanent deletes

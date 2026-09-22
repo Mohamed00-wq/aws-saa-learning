@@ -105,6 +105,22 @@ Security investigation:
 
 Real-time response:
   Trail → EventBridge rule (e.g. aws.iam DeleteUser) → Step Functions/Lambda → remediate + notify
+
+User: X
+     │
+     │ StopInstances
+     ↓
+   EC2
+     │
+     ↓
+ CloudTrail
+     │
+     ├── Who?      X
+     ├── What?     StopInstances
+     ├── Which?    EC2 instance i-123456
+     └── When?     10:35:21
+
+
 ```
 
 ## 9. SAA-C03 Perspective

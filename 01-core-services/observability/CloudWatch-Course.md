@@ -108,6 +108,23 @@ Container health:
 Synthetic + business:
   Canary → endpoint availability → alarm
   App logs (EMF) → custom metrics → dashboards; Metric Stream → Datadog/Splunk/S3 for SIEM
+
+
+                 EC2
+                  │
+        ┌─────────┴─────────┐
+        ↓                   ↓
+     Metrics              Logs
+     CPU: 75%              "ERROR..."
+     RAM...                "User logged in"
+        │
+        ↓
+      Alarm
+   CPU > 80% ?
+        │
+        ↓
+    Notification
+
 ```
 
 ## 9. SAA-C03 Perspective

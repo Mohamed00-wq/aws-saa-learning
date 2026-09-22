@@ -1,4 +1,4 @@
-# CloudTrail Course — API Auditing & Governance
+# CloudTrail Course — API Auditing & Governance (Audit 🔎)
 
 ## 1. Purpose
 

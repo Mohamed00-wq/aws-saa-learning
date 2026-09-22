@@ -1,4 +1,4 @@
-# CloudWatch Course — Monitoring & Observability
+# CloudWatch Course — Monitoring & Observability (Monitor 📊)
 
 ## 1. Purpose
 

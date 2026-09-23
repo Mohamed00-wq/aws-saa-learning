@@ -99,18 +99,28 @@ Input → Task (Lambda) → Choice ─┬─ yes → Parallel (Map A ∥ Map B) 
 Reference orchestration patterns:
 
 ```
-Order workflow (Standard):
-  API → state machine → validate (Lambda) → Choice
-        ├─ in-stock → reserve (DynamoDB) → charge (task token → payment svc) → ship (ECS) → done
-        └─ out-of-stock → notify (SNS) → wait (1d) → retry check
-  Retry/Catch on charge; full 90-day audit trail
+without step function:
 
-High-volume ETL (Express fan-out):
-  EventBridge (file landed) → Express → Map (per shard) → transform (Lambda) → write (S3)
-  (cheap at 100k/s, ≤5 min each)
+Start
+  ↓
+Create User
+  ↓
+Send Email
+  ↓
+Update Status
+  ↓
+End
 
-Long-running + hot-path combo:
-  Standard orchestrates the month-end job → invokes Express sub-workflows for high-volume rows
+
+with step function:
+
+             Step Functions
+      │
+      ├── Lambda: Create User
+      │
+      ├── SES: Send Email
+      │
+      └── DynamoDB: Update Status
 ```
 
 ## 9. SAA-C03 Perspective

@@ -1,88 +1,73 @@
-# AWS Artifact — Compliance Reports & Agreements
+# AWS Artifact Course — Compliance Reports & Agreements
 
-## What it is
+## 1. Purpose
 
-AWS Artifact is a self-service portal for retrieving **compliance reports** and **legal agreements** from AWS. It's where you download SOC reports, PCI DSS attestations, ISO certificates, FedRAMP authorizations, and sign Business Associate Agreements (BAAs) or Data Processing Addendums (DPAs). No need to email AWS or wait weeks — Artifact gives you on-demand access.
+AWS Artifact is the **self-service portal for retrieving AWS compliance reports and signing legal agreements**. You download **SOC reports, PCI DSS attestations, ISO certificates, FedRAMP authorizations**, IRAP, C5, CSA STAR, and similar certifications on demand, and sign **BAAs (HIPAA)** or **DPAs (GDPR)** electronically — no emailing AWS, no multi-week turnaround. For the SAA exam it's the answer for **"where do I get AWS compliance evidence / download a SOC report for an auditor / sign a Business Associate Agreement for HIPAA"**.
 
-For the SAA exam, Artifact is the answer when a question asks how to obtain AWS compliance documentation, how to sign a BAA for HIPAA, or how to download a SOC 2 report for an auditor. It's a simple service — know what it provides and where to find it.
+## 2. How it works
 
-## What Artifact provides
+- **Artifact Reports** — browse and download certification/report PDFs; Artifact always serves the **latest version**; periodic updates
+- **Artifact Agreements** — presented for **electronic signature**; once signed, stored in Artifact for reference
+- **NDA gating** — confidential reports (e.g., **SOC 1 / SOC 2 Type II**) require a **one-time NDA acceptance** before download
+- **Access** — AWS Console only (search "Artifact"); IAM permissions (`artifact:*`) control who can use it; each AWS account accesses independently (**no cross-account report sharing / distribution**)
 
-### Artifact Reports
+```
+Console → Artifact → Reports (SOC/PCI/ISO/FedRAMP/Irap/C5/CSA STAR...) PDF downloads
+                 → Agreements (BAA, DPA, addenda) → e-sign → stored for reference
+NDA-protected reports → accept NDA once → download freely
+Multi-account: per-account access, no cross-account sharing (NDA)
+```
 
-| Report | What it covers |
-|---|---|
-| **SOC 1 / SOC 2 / SOC 3** | Security, availability, processing integrity, confidentiality, privacy controls |
-| **PCI DSS** | Payment card industry compliance (relevant if handling credit cards) |
-| **ISO 27001 / 27017 / 27018** | International information security standards |
-| **FedRAMP** | Federal Risk and Authorization Management Program (government workloads) |
-| **IRAP** | Australian Government security assessment |
-| **MTCS** | Singapore Government security standard |
-| **C5** | German Cloud Computing Compliance Criteria |
-| **CSA STAR** | Cloud Security Alliance certification |
-| **Cyber Essentials Plus** | UK Government security standard |
+## 3. When to use
 
-- Reports are available in **PDF** format.
-- Updated periodically — Artifact always shows the **latest version**.
-- Some reports require an **NDA** (Non-Disclosure Agreement) before download.
+- **Providing AWS-side compliance evidence to an auditor** — SOC 1/2/3, PCI DSS, ISO, FedRAMP
+- **Signing a BAA (HIPAA)** before running PHI workloads on AWS, or a **DPA (GDPR)** for EU/EEA personal data
+- **Evaluating AWS compliance posture** for your own pre-work (which certifications cover the services you use)
+- **Any "get AWS compliance documentation on demand" question** — no need for AWS Support requests
 
-### Artifact Agreements
+## 4. When NOT to use
 
-| Agreement | When you need it |
-|---|---|
-| **BAA (Business Associate Agreement)** | HIPAA-regulated workloads — required before processing PHI on AWS |
-| **DPA (Data Processing Addendum)** | GDPR compliance — required when processing EU personal data |
-| **Addendum for Service Information** | Supplemental info for certain service agreements |
+- **Checking your own resource configurations against rules** → **AWS Config**
+- **Evidence of *your* systems' security posture / findings** → Security Hub, Inspector, GuardDuty, Audit Manager (Artifact is AWS's own attestations, not your compliance status)
+- **Trust center / third-party due-diligence portal** has replaced your download need → that's fine, Artifact is the AWS-native path
 
-- Agreements are presented for **electronic signature** in the Artifact console.
-- Once signed, the agreement is stored in Artifact for future reference.
-- **BAA covers all AWS services** that are HIPAA-eligible — sign once, use across all eligible services.
+## 5. Important features
 
-## NDA requirement
+- **Reports** — SOC 1/2/3, **PCI DSS**, **ISO 27001/27017/27018**, **FedRAMP**, **IRAP**, **MTCS**, **C5**, **CSA STAR**, **Cyber Essentials Plus** (PDF, latest versions)
+- **Agreements** — **BAA (HIPAA)**, **DPA (GDPR)**, service addenda; **e-sign directly** in the console
+- **BAA covers all HIPAA-eligible services once signed** — sign once, use across Lambda/EC2/RDS/S3 etc.
+- **One-time NDA acceptance** unlocks confidential reports
+- **Free service** — no charge for reports or agreements
+- Some reporting programs tied to **AWS Organizations** for enterprise agreements
 
-- Some compliance reports (especially SOC 1 and SOC 2 Type II) are classified as **confidential**.
-- You must accept an **AWS NDA** in Artifact before downloading these reports.
-- NDA is a one-time acceptance — once accepted, you can download NDA-protected reports freely.
+## 6. Limitations
 
-## Multi-account access
+- **Console-only** — no API, CLI, or SDK for downloading reports directly (everything goes through the portal)
+- **Per-account access** — no cross-account report sharing/distribution (NDA-bound); each account needs its own IAM permissions
+- **Artifact only proves AWS's compliance** — it's evidence, not a substitute for your own compliance program
+- Reports are updated periodically; always grab **latest version** for audit submissions (older certs may be superseded)
 
-- **Individual account access**: each IAM user accesses Artifact with their own AWS account.
-- **No cross-account sharing**: you can't download a report from Artifact and share it externally (violates NDA).
-- **AWS Organizations**: each member account can access Artifact independently.
+## 7. Trade-offs
 
-## Where Artifact lives
+- **Artifact vs AWS Config / Security Hub** — AWS's-own compliance *certifications* and *agreements* (Artifact) vs auditing *your* resources (Config) / aggregated findings & standards (Security Hub). You use Artifact alongside them, not instead
+- **vs third-party TPRM / GRC platforms** — Artifact is the authoritative AWS source; platforms pull from it. No real alternative inside AWS
+- **BAA vs DPA** — know which agreement matches which regulation: BAA = **HIPAA**, DPA = **GDPR**
 
-- AWS Management Console → search "Artifact" in the services menu.
-- No API — Artifact is **console-only** for reports and agreements.
-- No CLI/SDK access to download reports (but reports can be programmatically accessed via S3 after download).
+## 8. Architecture
 
-## Pricing
+```
+Workload: PHI on Lambda/EC2/RDS/S3 (HIPAA focus)
+  AWS Artifact: sign BAA (covers all HIPAA-eligible services) → processing PHI is now compliant
+  Auditors need evidence → user downloads SOC 2 Type II + HIPAA eligibility report
+  → IAM policy granting artifact:* on the security/audit account
+  GDPR workload → sign DPA in Artifact
+```
 
-AWS Artifact is **free** — no charge for downloading reports or signing agreements.
+## 9. SAA-C03 Perspective
 
-## Exam domains
+- **"Download AWS compliance reports / SOC / FedRAMP / ISO"** → **AWS Artifact**
+- **"Sign a BAA for HIPAA or DPA for GDPR"** → **AWS Artifact (Agreements)**
+- **"Check my resources against rules"** → **AWS Config**; "consolidated findings/security standards" → **Security Hub**
+- **"Continuous compliance evidence for audits"** → **AWS Audit Manager** (uses Config/Security Hub data + manual evidence)
 
-- [x] **Secure (30%)** — SOC/ISO/FedRAMP compliance documentation, BAA for HIPAA, NDA-protected reports
-- [x] **Resilient (26%)** — centralized access to compliance evidence for audits
-- [x] **High-Performing (24%)** — self-service portal, no manual AWS requests needed
-- [x] **Cost-Optimized (20%)** — free service, no cost considerations
-
-## Key gotchas
-
-1. **Artifact is console-only** — no API or CLI access to download reports directly
-2. **SOC 1 / SOC 2 Type II reports require NDA acceptance** — can't download without it
-3. **BAA covers all HIPAA-eligible services** — sign once in Artifact, use across Lambda, EC2, RDS, S3, etc.
-4. **Reports are updated periodically** — always download the latest version for audit submissions
-5. **Artifact is per-account** — no cross-account report sharing; each account needs its own access
-6. **IAM users need explicit Artifact permissions** — `artifact:*` actions in IAM policy to access the console
-7. **Don't email NDA-protected reports** — use secure sharing methods; distribution violates NDA terms
-8. **DPA is for GDPR** — BAA is for HIPAA; know which agreement matches which regulation
-9. **FedRAMP reports are in Artifact** — not separate; download from the same portal as SOC/ISO
-10. **Artifact doesn't replace compliance** — it provides evidence; you're still responsible for your own compliance posture
-
-## Related services
-
-- **AWS-Config** — tracks resource compliance against rules; Artifact provides AWS-side compliance evidence
-- **AWS-Security-Hub** — aggregates security findings; Artifact shows AWS compliance certifications
-- **IAM** — controls who can access Artifact in your account
-- **KMS** — Artifact reports are not KMS-encrypted (stored in AWS-managed S3)
+Exam traps: "Artifact has an API/CLI" → **no, console-only**; "Artifact checks your account's compliance" → **no, it provides AWS's certifications & legal agreements**; "NDA is per-report" → **one-time acceptance covers NDA-protected reports**; "BAA per-service" → **sign once, covers all HIPAA-eligible services**; "Artifact replaces your compliance program" → **it's evidence, not a compliance solution**. Mnemonic: **Artifact = AWS's paperwork (certifications + agreements) · Config = your config compliance · Audit Manager = continuous audit evidence.**

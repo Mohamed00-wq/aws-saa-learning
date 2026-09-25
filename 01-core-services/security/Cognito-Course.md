@@ -1,11 +1,11 @@
-# Cognito Course — Amazon Cognito (User & Identity Pools)
+# Cognito Course  Amazon Cognito (User & Identity Pools)
 
 ## 1. Purpose
 
-Cognito is AWS's **customer identity and access management (CIAM)** service for web and mobile apps: sign-up/sign-in, user directories, social/SAML/OIDC federation, MFA, and **temporary AWS credentials** for your app's users. It is for your **customers**, not your employees — employee SSO is IAM Identity Center, AWS-account access is IAM. Built from two components:
+Cognito is AWS's **customer identity and access management (CIAM)** service for web and mobile apps: sign-up/sign-in, user directories, social/SAML/OIDC federation, MFA, and **temporary AWS credentials** for your app's users. It is for your **customers**, not your employees  employee SSO is IAM Identity Center, AWS-account access is IAM. Built from two components:
 
-- **User pool** — a user directory + authentication/authorization (tokens, MFA, hosted UI). An OIDC provider.
-- **Identity pool** — exchanges an authentication token (or guest access) for **temporary IAM credentials (STS)** to reach AWS resources.
+- **User pool**  a user directory + authentication/authorization (tokens, MFA, hosted UI). An OIDC provider.
+- **Identity pool**  exchanges an authentication token (or guest access) for **temporary IAM credentials (STS)** to reach AWS resources.
 
 ## 2. How it works
 
@@ -37,18 +37,18 @@ Cognito is AWS's **customer identity and access management (CIAM)** service for 
 
 ## 6. Limitations
 
-- User pool isn't a full IAM policy engine — authorization beyond tokens is up to your app/API.
+- User pool isn't a full IAM policy engine  authorization beyond tokens is up to your app/API.
 - **SMS sandbox** in new regions requires phone verification before SMSS messages work (exam-relevant edge case).
-- Adaptive authentication / some features are **opt-in**; SMS MFA costs per message via SNS.
+- Adaptive authentication / some features are **opt-in** SMS MFA costs per message via SNS.
 - Quotas: user count, token sizes, IdP integration limits per pool.
-- Not a bot/DDoS defense — pair the login UI with **WAF** + **Shield**.
+- Not a bot/DDoS defense  pair the login UI with **WAF** + **Shield**.
 - Token expiry management (refresh tokens) adds app design work.
 
 ## 7. Trade-offs
 
-- **Cognito vs IAM Identity Center**: customers/app users vs workforce/SSO into AWS & business apps — pick by identity audience.
+- **Cognito vs IAM Identity Center**: customers/app users vs workforce/SSO into AWS & business apps  pick by identity audience.
 - **Cognito vs custom auth (Django/Node/JWT)**: managed sign-up, MFA, federation, compliance vs full control/portability.
-- **User pool vs identity pool** (most-tested distinction): *authentication/tokens* vs *temporary AWS credentials*; often used together.
+- **User pool vs identity pool** (most-tested distinction): *authentication/tokens* vs *temporary AWS credentials* often used together.
 - **Hosted UI vs custom pages**: fast/secure/standard vs branded/self-managed flows.
 - **Cognito vs Auth0/Okta CIAM**: AWS-native + cheap deep integration vs richer admin console and global identity features.
 
@@ -75,10 +75,10 @@ AppSync          (STS AssumeRole       authorizer
 
 ## 9. SAA-C03 Perspective
 
-- **User pool = auth (login, tokens, MFA, federation)**; **identity pool = temporary AWS creds (IAM)**. This split appears constantly.
+- **User pool = auth (login, tokens, MFA, federation)** **identity pool = temporary AWS creds (IAM)**. This split appears constantly.
 - "Mobile/web app users sign in with Google then access S3" → Cognito user pool (federation) + identity pool (creds).
 - Authorization of APIs → **API Gateway Cognito authorizer** (validates tokens) or a Lambda authorizer.
-- **Cognito vs IAM Identity Center**: customers vs workforce — read the scenario's audience.
+- **Cognito vs IAM Identity Center**: customers vs workforce  read the scenario's audience.
 - MFA/adaptive auth and guest access are scenario triggers for Cognito.
 
-Exam trap: "users need AWS credentials after logging in" → identity pool; "users just need to log in to a web app" → user pool.
+Exam trap: "users need AWS credentials after logging in" → identity pool "users just need to log in to a web app" → user pool.

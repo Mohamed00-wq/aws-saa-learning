@@ -1,8 +1,8 @@
-# CDK — Cloud Development Kit
+# CDK  Cloud Development Kit
 
 ## What it is
 
-AWS CDK is an open-source framework that defines cloud infrastructure using **real programming languages** — TypeScript, Python, Java, C#, Go — instead of YAML/JSON. Under the hood, CDK synthesizes your code into a CloudFormation template and deploys it as a stack. It doesn't replace CloudFormation — it wraps it.
+AWS CDK is an open-source framework that defines cloud infrastructure using **real programming languages**  TypeScript, Python, Java, C#, Go  instead of YAML/JSON. Under the hood, CDK synthesizes your code into a CloudFormation template and deploys it as a stack. It doesn't replace CloudFormation  it wraps it.
 
 ## Languages
 
@@ -14,7 +14,7 @@ AWS CDK is an open-source framework that defines cloud infrastructure using **re
 | C# (.NET) | `Amazon.CDK.Lib` |
 | Go | `github.com/aws/aws-cdk-go` |
 
-## Constructs — the building blocks
+## Constructs  the building blocks
 
 | Level | What it is | Example |
 |---|---|---|
@@ -36,14 +36,14 @@ AWS CDK is an open-source framework that defines cloud infrastructure using **re
 
 ## App & stack lifecycle
 
-1. `cdk synth` — compile → CloudFormation template (in `cdk.out/`).
-2. `cdk deploy` — upload template → create/update stack.
-3. `cdk diff` — compare current template vs deployed state.
-4. `cdk destroy` — delete the stack and all resources.
+1. `cdk synth`  compile → CloudFormation template (in `cdk.out/`).
+2. `cdk deploy`  upload template → create/update stack.
+3. `cdk diff`  compare current template vs deployed state.
+4. `cdk destroy`  delete the stack and all resources.
 
 ## CDK Pipelines
 
-- **Self-mutating CI/CD pipeline** built on **CodePipeline**. Define the pipeline as code — it updates itself on push.
+- **Self-mutating CI/CD pipeline** built on **CodePipeline**. Define the pipeline as code  it updates itself on push.
 - Stages: Source → Build → UpdatePipeline → Deploy (multiple accounts/regions).
 
 ## Context & environments
@@ -59,32 +59,32 @@ AWS CDK is an open-source framework that defines cloud infrastructure using **re
 
 ## `cdk bootstrap`
 
-- One-time setup per account/region — creates S3 bucket (staging assets) + ECR repo (container images).
+- One-time setup per account/region  creates S3 bucket (staging assets) + ECR repo (container images).
 - Creates IAM roles: `CDKDeployRole`, `CDKFilePublishingRole`, `CDKImagePublishingRole`.
 
 ## Pricing
 
-CDK itself is **free** — you pay only for the AWS resources it creates.
+CDK itself is **free**  you pay only for the AWS resources it creates.
 
 ## Exam domains
 
-- [x] **Secure (30%)** — grant methods for least privilege, context caching, environment separation
-- [x] **Resilient (26%)** — CDK Pipelines for multi-account/region deployment, snapshot testing
-- [x] **High-Performing (24%)** — L3 constructs for rapid development, asset bundling
-- [x] **Cost-Optimized (20%)** — reusable constructs across environments, skip dev resources
+- [x] **Secure (30%)**  grant methods for least privilege, context caching, environment separation
+- [x] **Resilient (26%)**  CDK Pipelines for multi-account/region deployment, snapshot testing
+- [x] **High-Performing (24%)**  L3 constructs for rapid development, asset bundling
+- [x] **Cost-Optimized (20%)**  reusable constructs across environments, skip dev resources
 
 ## Key gotchas
 
 1. **`cdk bootstrap` is required** in each account/region before first deploy
-2. **Context values are cached** — `cdk.context.json` can go stale
-3. **CDK uses CloudFormation** — every CF limitation is also a CDK limitation (500 resources, template size)
-4. **`grant*` methods** auto-generate IAM policies — don't write them by hand
-5. **Cross-stack references create CloudFormation exports** — can't delete exporting stack while imports exist
-6. **Asset bundling uses Docker by default** — make sure Docker is running
-7. **CDK Pipelines are self-mutating** — the pipeline updates itself; this is by design
+2. **Context values are cached**  `cdk.context.json` can go stale
+3. **CDK uses CloudFormation**  every CF limitation is also a CDK limitation (500 resources, template size)
+4. **`grant*` methods** auto-generate IAM policies  don't write them by hand
+5. **Cross-stack references create CloudFormation exports**  can't delete exporting stack while imports exist
+6. **Asset bundling uses Docker by default**  make sure Docker is running
+7. **CDK Pipelines are self-mutating**  the pipeline updates itself this is by design
 
 ## Related services
 
-- **CloudFormation** — CDK's underlying engine; synthesizes to CF templates
-- **SSM** — parameter store for context lookups
-- **S3** — asset staging bucket created by bootstrap
+- **CloudFormation**  CDK's underlying engine synthesizes to CF templates
+- **SSM**  parameter store for context lookups
+- **S3**  asset staging bucket created by bootstrap

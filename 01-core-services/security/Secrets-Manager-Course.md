@@ -1,4 +1,4 @@
-# Secrets Manager Course — AWS Secrets Manager
+# Secrets Manager Course  AWS Secrets Manager
 
 ## 1. Purpose
 
@@ -6,13 +6,13 @@ Secrets Manager stores, retrieves, and **automatically rotates** sensitive value
 
 ## 2. How it works
 
-- A **secret** is key/value or JSON (up to 64 KB) encrypted at rest with a KMS key (default: AWS managed `aws/secretsmanager`; customer-managed for cross-account/key-policy control).
-- **Access**: IAM policies + optional **resource policies** (for cross-account); retrieved over TLS.
+- A **secret** is key/value or JSON (up to 64 KB) encrypted at rest with a KMS key (default: AWS managed `aws/secretsmanager` customer-managed for cross-account/key-policy control).
+- **Access**: IAM policies + optional **resource policies** (for cross-account) retrieved over TLS.
 - **Versioning with staging labels**: `AWSCURRENT` (active), `AWSPREVIOUS` (last known good), `AWSPENDING` (during rotation).
 - **Rotation**:
-  - **Managed rotation** — the integrating service rotates for you (RDS/Aurora/Redshift managed secrets), no Lambda needed.
-  - **Rotation by Lambda** — a rotation function executes 4 steps: `createSecret` (new value → AWSPENDING) · `setSecret` (apply to DB/service) · `testSecret` (verify) · `finishSecret` (move AWSCURRENT). Strategies: **single user** or **alternating users** (two users/clone).
-- **Client-side caching** (SDK) reduces API calls and cost; apps keep using cached value across rotations.
+  - **Managed rotation**  the integrating service rotates for you (RDS/Aurora/Redshift managed secrets), no Lambda needed.
+  - **Rotation by Lambda**  a rotation function executes 4 steps: `createSecret` (new value → AWSPENDING) · `setSecret` (apply to DB/service) · `testSecret` (verify) · `finishSecret` (move AWSCURRENT). Strategies: **single user** or **alternating users** (two users/clone).
+- **Client-side caching** (SDK) reduces API calls and cost apps keep using cached value across rotations.
 
 ## 3. When to use
 
@@ -41,10 +41,10 @@ Secrets Manager stores, retrieves, and **automatically rotates** sensitive value
 
 ## 6. Limitations
 
-- **Cost**: per-secret monthly fee + per-API-call charges — parameter store is cheaper for high-read, low-value config.
+- **Cost**: per-secret monthly fee + per-API-call charges  parameter store is cheaper for high-read, low-value config.
 - **Rotation functions** are your responsibility for non-managed secrets (Lambda code, permissions, VPC networking).
-- Secret **sharing** is manual (resource policy + key policy) — not a global secret store across orgs automatically.
-- Value size cap ~64 KB; not designed for binary certs/blob storage.
+- Secret **sharing** is manual (resource policy + key policy)  not a global secret store across orgs automatically.
+- Value size cap ~64 KB not designed for binary certs/blob storage.
 - No built-in audit dashboard beyond CloudTrail/event history.
 
 ## 7. Trade-offs
@@ -66,11 +66,11 @@ Secret replicated to secondary Region for DR failover
 
 - Least-privilege IAM (`secretsmanager:GetSecretValue` on specific ARN).
 - Customer-managed KMS key for cross-account or key-policy control.
-- Cache + retry logic; use separate app user (not master) for DB access.
+- Cache + retry logic use separate app user (not master) for DB access.
 
 ## 9. SAA-C03 Perspective
 
-- "Store + **rotate** credentials" → Secrets Manager (the rotation word is the trigger; Parameter Store can't rotate).
+- "Store + **rotate** credentials" → Secrets Manager (the rotation word is the trigger Parameter Store can't rotate).
 - "Store config / non-secret parameters" → SSM Parameter Store.
 - **Rotation failure / fresh creds across Region** → multi-region replication + caching strategy.
 - **Cross-account secret access** → resource policy + KMS key policy grant.

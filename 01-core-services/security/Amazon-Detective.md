@@ -1,17 +1,17 @@
-# Amazon Detective Course — Security Investigation & Root Cause Analysis
+# Amazon Detective Course  Security Investigation & Root Cause Analysis
 
 ## 1. Purpose
 
-Amazon Detective **automates security investigation and root-cause analysis**. It ingests logs/findings from across your AWS environment, builds a **linked graph model** (ML + statistical analysis + graph theory), and gives you interactive visualizations to quickly answer "what happened, who did it, and why?" — without hand-querying raw logs. For SAA it's the companion to **GuardDuty**: GuardDuty *detects*, Detective *investigates*. The exam keyword is **"investigate a finding / VPC Flow Logs + CloudTrail + findings in one view / graph-based detection analytics"**.
+Amazon Detective **automates security investigation and root-cause analysis**. It ingests logs/findings from across your AWS environment, builds a **linked graph model** (ML + statistical analysis + graph theory), and gives you interactive visualizations to quickly answer "what happened, who did it, and why?"  without hand-querying raw logs. For SAA it's the companion to **GuardDuty**: GuardDuty *detects*, Detective *investigates*. The exam keyword is **"investigate a finding / VPC Flow Logs + CloudTrail + findings in one view / graph-based detection analytics"**.
 
 ## 2. How it works
 
-- **Enables a behavior graph** per Region per account (or via an admin for multi-account) — Detective continuously collects and aggregates **up to a year** of data
-- **Data sources** — **AWS CloudTrail** (management & data events), **Amazon VPC Flow Logs** (network traffic), **Amazon EKS audit logs**, **Amazon GuardDuty findings**, **AWS Security Hub findings**, and other integrated services (incl. **Amazon Security Lake** and AWS Partner products)
-- **Graph model** — ties entities (IP addresses, EC2 instances, IAM principals, API calls) into relationships; e.g., "this IP talked to this instance on this date, and during that window a role made these API calls"
-- **Visualizations** — graph view, summaries per resource/ip/principal, time-series of API call volume, related findings
-- **One-click integration** — from a GuardDuty finding (or Security Hub) click **"Investigate in Detective"** and land in the relevant context instantly
-- **GuardDuty Runtime Monitoring support** — Detective investigates ECS/EKS runtime detections with extra context and finding-grouping
+- **Enables a behavior graph** per Region per account (or via an admin for multi-account)  Detective continuously collects and aggregates **up to a year** of data
+- **Data sources**  **AWS CloudTrail** (management & data events), **Amazon VPC Flow Logs** (network traffic), **Amazon EKS audit logs**, **Amazon GuardDuty findings**, **AWS Security Hub findings**, and other integrated services (incl. **Amazon Security Lake** and AWS Partner products)
+- **Graph model**  ties entities (IP addresses, EC2 instances, IAM principals, API calls) into relationships e.g., "this IP talked to this instance on this date, and during that window a role made these API calls"
+- **Visualizations**  graph view, summaries per resource/ip/principal, time-series of API call volume, related findings
+- **One-click integration**  from a GuardDuty finding (or Security Hub) click **"Investigate in Detective"** and land in the relevant context instantly
+- **GuardDuty Runtime Monitoring support**  Detective investigates ECS/EKS runtime detections with extra context and finding-grouping
 
 ```
 GuardDuty finding / Security Hub finding → "Investigate in Detective"
@@ -22,11 +22,11 @@ GuardDuty finding / Security Hub finding → "Investigate in Detective"
 
 ## 3. When to use
 
-- **Investigate security findings** (GuardDuty, Security Hub) efficiently — root-cause analysis of a potential compromise
-- **SOC / incident-response workflows** — triage alerts, understand blast radius, correlate resources & principals
-- **Finding the "why"** behind an anomaly — which API calls, network connections, and identities were involved at the time
-- **Retention & context you can't easily get from raw logs** — aggregated, correlated, and visualized (1-year window)
-- **Multi-account org** — central investigation of findings across accounts
+- **Investigate security findings** (GuardDuty, Security Hub) efficiently  root-cause analysis of a potential compromise
+- **SOC / incident-response workflows**  triage alerts, understand blast radius, correlate resources & principals
+- **Finding the "why"** behind an anomaly  which API calls, network connections, and identities were involved at the time
+- **Retention & context you can't easily get from raw logs**  aggregated, correlated, and visualized (1-year window)
+- **Multi-account org**  central investigation of findings across accounts
 
 ## 4. When NOT to use
 
@@ -37,27 +37,27 @@ GuardDuty finding / Security Hub finding → "Investigate in Detective"
 
 ## 5. Important features
 
-- **Behavior graph** — ML / statistical / graph-theory correlation of trillions of events
+- **Behavior graph**  ML / statistical / graph-theory correlation of trillions of events
 - **~1 year of aggregated data** for analysis (no retention management on your part)
-- **Data sources** — CloudTrail, VPC Flow Logs, EKS audit logs, GuardDuty, Security Hub, Security Lake, partner findings
+- **Data sources**  CloudTrail, VPC Flow Logs, EKS audit logs, GuardDuty, Security Hub, Security Lake, partner findings
 - **"Investigate in Detective" one-click** from GuardDuty/Security Hub
 - **GuardDuty Runtime Monitoring (ECS/EKS)** investigation support with finding grouping
 - **Multi-account administration** and cross-account visibility
-- **No agents, no logging configuration** — enable and it collects quietly
+- **No agents, no logging configuration**  enable and it collects quietly
 
 ## 6. Limitations
 
-- **Detective is an analysis tool, NOT a source of logs** — it retains/analyzes what its integrated sources send (if you disable CloudTrail/Flow Logs, context degrades)
-- **Regional behavior graphs** — you enable per Region
-- **Investigation UX learning curve**; heavy visualization use
-- **Not a threat detection service** — no new threat findings are generated by Detective itself
+- **Detective is an analysis tool, NOT a source of logs**  it retains/analyzes what its integrated sources send (if you disable CloudTrail/Flow Logs, context degrades)
+- **Regional behavior graphs**  you enable per Region
+- **Investigation UX learning curve** heavy visualization use
+- **Not a threat detection service**  no new threat findings are generated by Detective itself
 
 ## 7. Trade-offs
 
-- **Detective vs GuardDuty** — investigate/root-cause (Detective) vs detect/threat-intel (GuardDuty). They're designed to work together — GD finding → Detective investigation
-- **Detective vs Security Hub** — deep investigation view of one finding vs aggregated cross-service compliance & findings console (both consume Security Hub data)
-- **Detective vs self-built (Athena/Security Lake/Pantheon)** — managed, pre-correlated graphs, no pipeline to maintain vs full control/custom queries
-- **Detective vs Inspector** — who/why/what-happened investigations vs vulnerability management
+- **Detective vs GuardDuty**  investigate/root-cause (Detective) vs detect/threat-intel (GuardDuty). They're designed to work together  GD finding → Detective investigation
+- **Detective vs Security Hub**  deep investigation view of one finding vs aggregated cross-service compliance & findings console (both consume Security Hub data)
+- **Detective vs self-built (Athena/Security Lake/Pantheon)**  managed, pre-correlated graphs, no pipeline to maintain vs full control/custom queries
+- **Detective vs Inspector**  who/why/what-happened investigations vs vulnerability management
 
 ## 8. Architecture
 
@@ -78,4 +78,4 @@ Incident response flow:
 - **"Detect threats / anomalous API calls / malicious IPs"** → **GuardDuty** (Detective follows up)
 - **"Central security findings & compliance hub"** → **Security Hub**
 
-Exam traps: "Detective detects threats" → **no, it investigates existing findings/logs**; "Detective replaces GuardDuty" → **complementary**; "Detective is a log archive" → **no, a pre-built analysis/investigation product**; "you configure collectors/agents" → **no agents, auto-collected data sources**.
+Exam traps: "Detective detects threats" → **no, it investigates existing findings/logs** "Detective replaces GuardDuty" → **complementary** "Detective is a log archive" → **no, a pre-built analysis/investigation product** "you configure collectors/agents" → **no agents, auto-collected data sources**.

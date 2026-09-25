@@ -15,4 +15,4 @@ Every service gets its own markdown file
 
 ## License
 
-MIT — see [LICENSE](./LICENSE).
+MIT  see [LICENSE](./LICENSE).

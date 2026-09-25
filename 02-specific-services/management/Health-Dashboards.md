@@ -1,4 +1,4 @@
-# AWS Health Dashboard — Service Health & Personalized Alerts
+# AWS Health Dashboard  Service Health & Personalized Alerts
 
 ## What it is
 
@@ -24,7 +24,7 @@ AWS Health Dashboard provides visibility into the health of AWS services and you
 ## Event details
 
 - **Service** affected, **Region** impacted, **Affected resource ARNs**, **Start/end time**, **Description** with recommended actions.
-- **Aggregated events**: multiple related events grouped into one summary — reduces noise.
+- **Aggregated events**: multiple related events grouped into one summary  reduces noise.
 
 ## Integrations
 
@@ -51,27 +51,27 @@ AWS Health Dashboard provides visibility into the health of AWS services and you
 
 ## Pricing
 
-AWS Health Dashboard is **free** — no charge for events, notifications, or API calls.
+AWS Health Dashboard is **free**  no charge for events, notifications, or API calls.
 
 ## Exam domains
 
-- [x] **Secure (30%)** — organization-level visibility, alternate contacts
-- [x] **Resilient (26%)** — proactive maintenance alerts, auto-remediation via EventBridge + Lambda
-- [x] **High-Performing (24%)** — aggregated events, real-time API access
-- [ ] **Cost-Optimized (20%)** — free service, no cost considerations
+- [x] **Secure (30%)**  organization-level visibility, alternate contacts
+- [x] **Resilient (26%)**  proactive maintenance alerts, auto-remediation via EventBridge + Lambda
+- [x] **High-Performing (24%)**  aggregated events, real-time API access
+- [ ] **Cost-Optimized (20%)**  free service, no cost considerations
 
 ## Key gotchas
 
-1. **Personal Health Dashboard requires activation** — go to health.aws.amazon.com and enable it
-2. **Root user gets emails by default** — add alternate contacts or use EventBridge to actually get notified
-3. **Service Health Dashboard is public and generic** — doesn't show your specific affected resources
-4. **Organization events only visible in management account** — members see only their own
-5. **Health ≠ CloudWatch** — Health shows AWS-side events; CloudWatch shows your metrics/logs
-6. **EventBridge is the preferred integration** — more flexible than SNS for automation
+1. **Personal Health Dashboard requires activation**  go to health.aws.amazon.com and enable it
+2. **Root user gets emails by default**  add alternate contacts or use EventBridge to actually get notified
+3. **Service Health Dashboard is public and generic**  doesn't show your specific affected resources
+4. **Organization events only visible in management account**  members see only their own
+5. **Health ≠ CloudWatch**  Health shows AWS-side events CloudWatch shows your metrics/logs
+6. **EventBridge is the preferred integration**  more flexible than SNS for automation
 
 ## Related services
 
-- **CloudWatch** — operational metrics; Health explains when AWS infrastructure is the cause
-- **EventBridge** — route Health events to automation workflows
-- **SNS — email/SMS** notifications for Health events
-- **ASG** — Health events can trigger scaling via EventBridge
+- **CloudWatch**  operational metrics Health explains when AWS infrastructure is the cause
+- **EventBridge**  route Health events to automation workflows
+- **SNS  email/SMS** notifications for Health events
+- **ASG**  Health events can trigger scaling via EventBridge

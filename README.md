@@ -1,18 +1,28 @@
-# AWS SAA-C03 Learning Journey
+# AWS Solutions Architect Associate (SAA-C03) Lab
 
-Hands-on study log for the AWS Certified Solutions Architect – Associate (SAA-C03) exam.
+Study repository for the AWS Certified Solutions Architect - Associate (SAA-C03) certification.
 
-Every service gets its own markdown file 
+Combines theoretical documentation + hands-on projects with Terraform for learning by doing.
 
-## Exam domains
-| Domain | Weight |
+## Repository Layout
+
+| Folder | Contents |
 |---|---|
-| Design Secure Architectures | 30% |
-| Design Resilient Architectures | 26% |
-| Design High-Performing Architectures | 24% |
-| Design Cost-Optimized Architectures | 20% |
+| `00-...` | ... |
+| `01-core-services/` | Core service courses by domain (compute, container, databases, integration, Networking, observability, security, storage) |
+| `02-specific-services/` | Specific service courses (analytics, devops, migration, media-ai, management, ...) |
+| `03-saa-architecture/` | Exam architecture topics (HA, DR, scalability, performance, cost, decoupling, security, ...) |
+| `04-architecture-labs/` | Hands-on Terraform labs (three-tier, serverless, HA web app, decoupled, static site) |
 
+## Exam Domains
+
+| Domain | Weight | Sections |
+|---|---|---|
+| Design Secure Architectures | 30% | `01-core-services/security`, `01-core-services/Networking`, `03-saa-architecture/security` |
+| Design Resilient Architectures | 26% | `03-saa-architecture` (HA, fault-tolerance, DR), `01-core-services/compute`, `01-core-services/databases` |
+| Design High-Performing Architectures | 24% | `01-core-services/compute`, `01-core-services/storage`, `01-core-services/databases`, `01-core-services/Networking`, `01-core-services/integration` |
+| Design Cost-Optimized Architectures | 20% | `03-saa-architecture/cost-optimization`, `01-core-services/compute`, `01-core-services/storage` |
 
 ## License
 
-MIT  see [LICENSE](./LICENSE).
+MIT. See [LICENSE](./LICENSE).

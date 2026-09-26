@@ -1,80 +1,42 @@
 # AWS Service Catalog  Approved Service Catalogs
 
-## What it is
+## Purpose
 
-AWS Service Catalog lets organizations create and manage **curated catalogs of approved AWS services** for end users. Developers launch pre-approved infrastructure without needing full AWS access. Administrators define what's available, users pick from a menu. For the SAA exam, it's the answer for governing and standardizing resource provisioning, restricting what users can create, and enforcing tagging.
+AWS Service Catalog is a **governance service for standardized self-service provisioning**. Admins package approved, compliant infrastructure (backed by **CloudFormation templates**) into **Products**, group them into **Portfolios**, and share those portfolios with users or accounts. End users launch pre-approved resources **without needing direct IAM permissions**. For the SAA exam it's the answer for **controlling what users can create, enforcing tags, and centralizing approved blueprints**.
 
-## Core components
+## Main use cases
 
-| Component | What it is |
-|---|---|
-| **Product** | A deployable item backed by a CloudFormation template |
-| **Portfolio** | A collection of related products |
-| **Constraint** | Rules applied to a product (launch, notification, tag update, template) |
-| **TagOption** | Predefined tags applied automatically on launch |
+- **Curated catalogs of approved services**  users pick from a menu instead of getting broad AWS access
+- **Self-service provisioning** of standard environments (dev VPCs, RDS, reusable EC2 baselines) without creating IAM admin access
+- **Tag enforcement** on everything launched via **TagOptions**
+- **Cross-account / organization-wide blueprints** via portfolio sharing (IAM users, specific accounts, or **all Org accounts**)
+- **Restricting user inputs** with **Template constraints** (e.g. force `t3.small`, block large instance types)
 
-## How it works
+## Key features
 
-1. Admin creates a **Product** (upload CloudFormation template).
-2. Admin adds it to a **Portfolio** and sets **Constraints**.
-3. Admin shares the portfolio with **IAM users/roles** or **AWS Organizations**.
-4. End user browses, selects, fills parameters, and launches  CloudFormation provisions resources.
+- **Core components**  **Product** (deployable item = CF template), **Portfolio** (collection of products), **Constraint** (policy on a product), **TagOption** (predefined tag applied on launch)
+- **Constraints**  **Launch** (assigns an IAM role so users don't need direct permissions  the key governance feature), **Notification** (SNS on launch/update), **Tag update** (control post-launch tag changes), **Template** (limit parameter values users can supply)
+- **TagOptions**  library of allowed tag key-values users pick from the list, can't invent tags
+- **Sharing modes**  IAM (users/roles/groups), Account (specific AWS accounts), **Organizations** (all accounts, most scalable) shared portfolios show as **imported** and stay in sync
+- **Governance for any IaC tool**  native CloudFormation products, Terraform wrapped in a CF template or Lambda-backed custom resource
+- **Pricing**: free (pay for the provisioned resources only)
 
-## Constraints
+## When to use
 
-| Constraint | What it does |
-|---|---|
-| **Launch** | Assigns an **IAM role**  users don't need direct IAM permissions |
-| **Notification** | Sends SNS notifications on launch/update |
-| **Tag update** | Controls whether users can modify tags post-launch |
-| **Template** | Restricts which parameter values users can provide |
+- Need to **give many users the power to launch standard resources safely**
+- Need **approval-free but governed** provisioning (users don't get console IAM rights, and **can't see the underlying template**)
+- **Large orgs (multi-account)** standardizing reusable infrastructure with **Organizations sharing**
+- Enforcing **cost-allocation tags and allowed instance types** at launch time
 
-- **Launch constraint is the key governance feature**  users can launch EC2 without EC2 permissions.
+## Important limitation
 
-## TagOptions
+- **No ongoing management**  after launch, **CloudFormation owns the resources**, and **TagOptions are not enforced post-launch** (use **AWS Config** for continuous compliance). **End users can't read the template**, only descriptions and parameters, which limits debugging. **Region-specific** (share per Region). Works best with CloudFormation-native products Terraform needs wrapping.
 
-- Library of predefined tag key-value pairs. Attached to products/portfolios, applied on launch.
-- Users select from allowed values  can't invent new tags.
+## SAA relevance
 
-## Sharing
-
-| Method | Scope |
-|---|---|
-| **IAM sharing** | Specific users, roles, or groups |
-| **Organizations sharing** | All accounts in the organization |
-| **Account sharing** | Specific AWS accounts (cross-account) |
-
-- Shared portfolios appear as **imported**. Organizations sharing is the most scalable.
-
-## CloudFormation + Terraform
-
-- **CloudFormation**: native support  upload directly. **Terraform**: wrap in CloudFormation template or Lambda-backed custom resource.
-- Service Catalog is a **governance layer** on top of any IaC tool.
-
-## Pricing
-
-AWS Service Catalog is **free**  pay only for underlying resources provisioned.
-
-## Exam domains
-
-- [x] **Secure (30%)**  launch constraints, template constraints, tag governance
-- [x] **Resilient (26%)**  Organizations sharing, CloudFormation-backed products
-- [x] **High-Performing (24%)**  self-service provisioning, reduce ticket-based bottlenecks
-- [x] **Cost-Optimized (20%)**  TagOptions for cost allocation, restrict expensive types
-
-## Key gotchas
-
-1. **Launch constraints mean users don't need IAM permissions**  the launch role does the work
-2. **Service Catalog doesn't manage resources after launch**  CloudFormation does
-3. **Shared portfolios are imported, not copied**  changes propagate to all accounts
-4. **End users can't see the template**  only product description and parameters
-5. **TagOptions are not enforced after launch**  use AWS Config for ongoing compliance
-6. **Template constraints restrict parameter values**, not resources
-7. **Service Catalog is region-specific**  share across regions separately
-
-## Related services
-
-- **CloudFormation**  products are backed by CF templates
-- **IAM**  launch constraints, portfolio sharing permissions
-- **AWS-Config**  enforce ongoing tag compliance post-launch
-- **AWS-Organizations**  share portfolios across all accounts
+- "**Standardized, governed self-service provisioning** of AWS resources" -> **Service Catalog**
+- "**Users launch pre-approved resources without IAM permissions**" -> **Launch constraint** (IAM role)
+- "**Enforce tags and allowed instance types on user launches**" -> **TagOptions + Template constraints**
+- "**Roll out approved blueprints across the organization**" -> Portfolios + **Organizations sharing**
+- "**Post-launch compliance**" -> pair with **AWS Config**
+- Exam trap: Service Catalog is a **provisioning gate, not a runtime manager**  it delegates to **CloudFormation**, and it **cannot enforce tags after the fact** (Config does that).

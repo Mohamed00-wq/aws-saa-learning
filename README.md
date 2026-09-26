@@ -1,18 +1,17 @@
 # AWS Solutions Architect Associate (SAA-C03) Lab
 
-Study repository for the AWS Certified Solutions Architect - Associate (SAA-C03) certification.
+Study repository for the AWS Certified Solutions Architect  Associate (SAA-C03) certification.
 
-Combines theoretical documentation + hands-on projects with Terraform for learning by doing.
+Combines theoretical documentation + hands-on projects for learning by doing.
 
 ## Repository Layout
 
 | Folder | Contents |
 |---|---|
-| `00-...` | ... |
 | `01-core-services/` | Core service courses by domain (compute, container, databases, integration, Networking, observability, security, storage) |
 | `02-specific-services/` | Specific service courses (analytics, devops, migration, media-ai, management, ...) |
 | `03-saa-architecture/` | Exam architecture topics (HA, DR, scalability, performance, cost, decoupling, security, ...) |
-| `04-architecture-labs/` | Hands-on Terraform labs (three-tier, serverless, HA web app, decoupled, static site) |
+| `04-architecture-labs/` | Hands-on labs (three tier, serverless, HA web app, decoupled, static site) |
 
 ## Exam Domains
 

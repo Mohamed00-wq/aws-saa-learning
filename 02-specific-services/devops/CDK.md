@@ -1,90 +1,45 @@
-# CDK  Cloud Development Kit
+# AWS CDK  Cloud Development Kit
 
-## What it is
+## Purpose
 
-AWS CDK is an open-source framework that defines cloud infrastructure using **real programming languages**  TypeScript, Python, Java, C#, Go  instead of YAML/JSON. Under the hood, CDK synthesizes your code into a CloudFormation template and deploys it as a stack. It doesn't replace CloudFormation  it wraps it.
+AWS CDK is an **open-source IaC framework** that defines AWS infrastructure in **real programming languages** (TypeScript, Python, Java, C#, Go, JavaScript) instead of YAML/JSON. It compiles ("synthesizes") that code into **CloudFormation templates** and deploys them as stacks, so it **wraps CloudFormation rather than replacing it**. For the SAA exam it's the modern answer for **code-defined, testable, reusable infrastructure**, especially in CI/CD pipelines.
 
-## Languages
+## Main use cases
 
-| Language | Package |
-|---|---|
-| TypeScript | `aws-cdk-lib` |
-| Python | `aws-cdk-lib` |
-| Java | `software.amazon.awscdk` |
-| C# (.NET) | `Amazon.CDK.Lib` |
-| Go | `github.com/aws/aws-cdk-go` |
+- **Infrastructure built like application code**  classes, loops, conditionals, unit-testable constructs
+- **Rapid multi-service stacks** with **L3 patterns** (e.g. `ApplicationLoadBalancedFargateService` provisions ALB + ECS + security groups in one construct)
+- **CI/CD for infrastructure** with self-mutating **CDK Pipelines** (CodePipeline-based, multi-account/multi-region)
+- **Reusable libraries** shared across teams/environments (constructs as packages)
+- **Asset deployment** (bundling Lambda code, Docker images) with automatic S3/ECR staging via **`cdk bootstrap`**
+- **Testing infrastructure**: snapshot tests (`cdk synth` vs saved template) and assertion tests (`Template.fromStack`)
 
-## Constructs  the building blocks
+## Key features
 
-| Level | What it is | Example |
-|---|---|---|
-| **L1 (CfnResource)** | 1:1 mapping to CloudFormation resource | `CfnBucket`, `CfnFunction` |
-| **L2 (Resource)** | Opinionated wrapper with defaults and helpers | `Bucket`, `Function`, `Table` |
-| **L3 (Pattern)** | Pre-assembled multi-resource patterns | `RestApi`, `ApplicationLoadBalancedFargateService` |
+- **Three construct levels**  **L1 / CfnResource** (1:1 with CF resources), **L2** (opinionated wrappers with sane defaults, e.g. `Bucket`, `Function`, `Table`), **L3** (pre-assembled multi-resource patterns)
+- **App -> Stack -> Construct hierarchy** (Stack = 1 CF stack)
+- **Workflow**  `cdk synth` (compile to template in `cdk.out/`) -> `cdk diff` (compare deployed state) -> `cdk deploy` -> `cdk destroy`
+- **`cdk bootstrap`** one-time per account/region (staging S3 bucket + ECR repo + IAM roles `CDKDeployRole`, file/image publishing roles)
+- **Environment & context**: deploy to specific `account`/`region` `cdk.context.json` caches lookups (VPC ID, AMI) via `StringParameter.valueFromLookup` (`cdk context --clear` to refresh)
+- **`grant*` methods** auto-generate least-privilege IAM policies so you don't hand-write them
+- **CDK Pipelines** are **self-mutating** (the pipeline re-deploys itself on every commit)
+- **Pricing**: CDK itself is **free** (you pay only for resources it creates)
 
-- **App** → **Stack** → **Construct** hierarchy. Stack maps 1:1 to a CloudFormation stack.
+## When to use
 
-## CDK vs CloudFormation
+- Teams that **already write application code** and want type safety + IDE feedback for infrastructure
+- **Complex, conditional, or large** infrastructure that's painful in plain YAML
+- **Reusable, versioned infrastructure libraries** across many projects
+- CI/CD-ified infrastructure deployment (**CDK Pipelines**) across dev/staging/prod accounts
+- **Default modern choice for "code-based IaC"** still reviewed as CloudFormation under the hood
 
-| | CDK | CloudFormation |
-|---|---|---|
-| Language | TypeScript, Python, Java, C#, Go | YAML or JSON only |
-| Abstractions | L1/L2/L3 constructs | Intrinsic functions |
-| Type safety | Yes (IDE catches errors at write time) | No (errors at deploy time) |
-| Reusability | Classes, libraries, packages | Nested stacks, modules |
-| Underlying engine | CloudFormation | CloudFormation |
+## Important limitation
 
-## App & stack lifecycle
+- **CDK is no faster than CloudFormation at runtime**  it inherits every CF constraint (500-resource stacks, template size limits, update/replacement semantics). Requires **`cdk bootstrap`** before first deploy per account/region, **Docker** for asset bundling by default, and **Node runtime** in the pipeline. Context values go stale (must refresh). Cross-stack refs become CF exports that block deletion while imported. More "magic" than plain CF, so generated templates are harder to eyeball.
 
-1. `cdk synth`  compile → CloudFormation template (in `cdk.out/`).
-2. `cdk deploy`  upload template → create/update stack.
-3. `cdk diff`  compare current template vs deployed state.
-4. `cdk destroy`  delete the stack and all resources.
+## SAA relevance
 
-## CDK Pipelines
-
-- **Self-mutating CI/CD pipeline** built on **CodePipeline**. Define the pipeline as code  it updates itself on push.
-- Stages: Source → Build → UpdatePipeline → Deploy (multiple accounts/regions).
-
-## Context & environments
-
-- **Environments**: stack deployed to specific `account` + `region` combination.
-- **Context** (`cdk.context.json`): cached lookup values (VPC ID, AMI). `cdk context --clear` forces re-lookup.
-- **SSM Parameter Store**: read values at synth time via `StringParameter.valueFromLookup`.
-
-## Testing
-
-- **Snapshot tests**: `cdk synth` → compare template against saved snapshot.
-- **Assertions**: `Template.fromStack(stack)` → assert resource count and properties.
-
-## `cdk bootstrap`
-
-- One-time setup per account/region  creates S3 bucket (staging assets) + ECR repo (container images).
-- Creates IAM roles: `CDKDeployRole`, `CDKFilePublishingRole`, `CDKImagePublishingRole`.
-
-## Pricing
-
-CDK itself is **free**  you pay only for the AWS resources it creates.
-
-## Exam domains
-
-- [x] **Secure (30%)**  grant methods for least privilege, context caching, environment separation
-- [x] **Resilient (26%)**  CDK Pipelines for multi-account/region deployment, snapshot testing
-- [x] **High-Performing (24%)**  L3 constructs for rapid development, asset bundling
-- [x] **Cost-Optimized (20%)**  reusable constructs across environments, skip dev resources
-
-## Key gotchas
-
-1. **`cdk bootstrap` is required** in each account/region before first deploy
-2. **Context values are cached**  `cdk.context.json` can go stale
-3. **CDK uses CloudFormation**  every CF limitation is also a CDK limitation (500 resources, template size)
-4. **`grant*` methods** auto-generate IAM policies  don't write them by hand
-5. **Cross-stack references create CloudFormation exports**  can't delete exporting stack while imports exist
-6. **Asset bundling uses Docker by default**  make sure Docker is running
-7. **CDK Pipelines are self-mutating**  the pipeline updates itself this is by design
-
-## Related services
-
-- **CloudFormation**  CDK's underlying engine synthesizes to CF templates
-- **SSM**  parameter store for context lookups
-- **S3**  asset staging bucket created by bootstrap
+- "**Infrastructure as code with a programming language / type safety**" -> **CDK** (vs YAML/JSON CloudFormation)
+- "**Testable, reusable infrastructure and CI/CD infrastructure pipelines**" -> CDK + **CDK Pipelines**
+- "**Automatically generated least-privilege IAM for resources**" -> `grant*` methods
+- "**2026-era IaC pattern**" -> CDK (Gen 2 apps, watch/ciphers, stack synthesizers), still built on **CloudFormation**
+- Exam trick: **CDK = CloudFormation underneath**, both **free** themselves, and `cdk bootstrap` assets live in **S3/ECR**.

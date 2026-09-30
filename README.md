@@ -219,9 +219,6 @@ Each lab is a folder containing four files:
 This is a personal study repo, so the workflow is informal: write a note when you hit a gap, keep the section skeleton, and link new architecture concepts back to the service notes that support them.
 
 
-
-Commit messages in this repo follow Conventional Commits (`feat:`, `chore:`) for new material, with plain descriptive messages used for the larger content drops.
-
 ## License
 
 [MIT](LICENSE) © 2026 Mohamed

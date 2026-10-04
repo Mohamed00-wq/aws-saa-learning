@@ -1,0 +1,28 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "EnableAccountIAMPermessions",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::123456789012:root"
+            },
+            "Action": "kms:*",
+            "Resource": "*"
+        },
+        {
+            "Sid":"AllowApplicationCryptographicUse",
+            "Effect":"Allow",
+            "Principal":{
+                "AWS":"arn:aws:iam::123456789012:role/AppserverRole"
+            },
+            "Action":[
+                "kms:Ecrypt",
+                "kms:Decrypt",
+                "kms:GenerateDataKey",
+                "kms:DescribeKey"
+            ],
+            "Resource":"*"
+        }
+    ]
+}

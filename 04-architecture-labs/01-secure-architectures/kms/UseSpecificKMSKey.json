@@ -1,0 +1,15 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "UseSpecificKMSKey",
+            "Effect": "Allow",
+            "Action":[
+                "kms:Decrypt",
+                "kms:GenerateDataKey",
+                "kms:DescribeKey"
+            ],
+            "Resource": "arn:aws:kms:us-east-1:000000000000:key/3f15c7b6-73b1-45a9-9ecb-cfd22c05b1a5"
+        }
+    ]
+}
